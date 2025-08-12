@@ -1,0 +1,61 @@
+#%%
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as pt
+import seaborn as sb
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+#%%
+#Loading the dataset
+iris=pd.read_csv("D:\downloads\8836201-6f9306ad21398ea43cba4f7d537619d0e07d5ae3.zip\8836201-6f9306ad21398ea43cba4f7d537619d0e07d5ae3")
+#%%
+print(iris)
+#%%
+iris.head(20)
+#%%
+iris.tail(20)
+#%%
+iris.info()
+#%%
+iris.describe()
+#%%
+iris.shape
+#%%
+iris.size
+#%%
+iris.columns
+#%%
+iris.isnull().sum()
+#%%
+iris =iris.drop('Id', axis = 1)
+iris
+#%%
+sb.pairplot(iris, hue = 'Species', palette = 'hls')
+#%%
+iris.corr()
+#%%
+pt.figure(figsize=(8 ,4))
+sb.boxplot(data=iris, orient="h", palette="Set2")
+pt.show()
+#%%
+sb.lmplot( x="SepalLengthCm", y="SepalWidthCm", data=iris, fit_reg=False, hue='Species', legend=False)
+pt.legend(loc='lower right')
+pt.show()
+
+#%%
+pt.figure(figsize=(8 ,4))
+sb.heatmap(iris.corr(), annot=True, cmap='viridis')
+pt.show()
+#%%
+x_axis = iris.drop(['Species'],1)
+x_axis.head()
+#%%
+y_axis = iris['Species']
+y_axis.head()
+#%%
+x_train, x_test, y_train, y_test = train_test_split(x_axis, y_axis, test_size= 0.2)
+#%%
+data_model=SVC()
